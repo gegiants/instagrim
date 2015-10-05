@@ -17,9 +17,9 @@
     <body>
         <header>
             <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
+            <h2>Your world in Black and White</h2>          
         </header>
-        <nav>
+        <nav>       
             <ul>
 
                
@@ -28,10 +28,11 @@
                         
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                         if (lg != null) {
-                            String UserName = lg.getUsername();
-                            if (lg.getlogedin()) {
+                            String UserName = lg.getUsername(); %>
+                             <%=UserName%>   
+                          <%  if (lg.getlogedin()) {
                     %>
-
+                     
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                     <%}
                             }else{
@@ -43,6 +44,9 @@
                             
                     }%>
             </ul>
+            <form  method="POST" action="Logout">
+                   <input type="submit" value="Logout" />
+           </form>
         </nav>
         <footer>
             <ul>
@@ -50,5 +54,6 @@
                 <li>&COPY; Andy C</li>
             </ul>
         </footer>
+            
     </body>
 </html>
