@@ -11,6 +11,7 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
+import java.util.*;
 import java.util.Date;
 import uk.ac.dundee.computing.aec.instagrim.stores.*;
 
@@ -48,32 +49,46 @@ public class CommentModel {
     }
     
     
-    public java.util.LinkedList<String> getCommentsForPic() {
-        java.util.UUID picID = java.util.UUID.fromString("c7f33250-78c6-11e5-8c14-208984479511");
+    public java.util.LinkedList<String> getCommentsForPic(java.util.LinkedList<Pic> lsPics) {
+        Iterator<Pic> iterator = lsPics.iterator();
+        
+        
+        //java.util.UUID picID = java.util.UUID.fromString("c7f33250-78c6-11e5-8c14-208984479511");
         java.util.LinkedList<String> Comments = new java.util.LinkedList<>();
+        
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select comment from commentslist");
+        while (iterator.hasNext()){
+            
+           Pic p = (Pic) iterator.next();
+           java.util.UUID ID = UUID.fromString(p.getSUUID());
+            
+        PreparedStatement ps = session.prepare("select comment from commentslist where picid =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        ));
+                        ID));
         if (rs.isExhausted()) {
-            System.out.println("No comments");
-            return null;
+            System.out.println("No comments to add");
+            
         } else {
             String string;
             for (Row row : rs) {
-                // = new Pic();
-                string = "tora";
-                //System.out.println("UUID" + UUID.toString());
-                //pic.setUUID(UUID);
+                
+               
+                
+                string = row.getString("comment");             
+                
                 Comments.add(string);
 
             }
-            return Comments;
         }
+         
         
+        
+        
+        }
+        return Comments;
     }
     
 }
