@@ -141,15 +141,16 @@ public class CommentHandler extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     
-    protected void DisplayCommentList( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+    protected void DisplayCommentList(String picid, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*
         CommentModel cm = new CommentModel();
         cm.setCluster(cluster);
-        //java.util.UUID picID = java.util.UUID.fromString(picid);
+        java.util.UUID picID = java.util.UUID.fromString(picid);
         java.util.LinkedList<String> lsComm =cm.getCommentsForPic();
         RequestDispatcher rd = request.getRequestDispatcher("/UsersPics.jsp");
         request.setAttribute("Comments", lsComm);
         rd.forward(request, response);
+                */
     }
 
 }
