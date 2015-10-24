@@ -10,7 +10,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
+        
         <link rel="stylesheet" type="text/css" href="Styles.css" />
+        
 
     </head>
     <body>
@@ -29,7 +31,7 @@
             <h3>Login</h3>
             <form method="POST"  action="Login">
                 <ul>
-                    <li>User Name <input type="text" name="username"></li>
+                    <li>User Name <input type="text" name="username"><br><br></li>
                     <li>Password <input type="password" name="password"></li>
                 </ul>
                 <br/>
@@ -39,7 +41,7 @@
         </article>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li class="footer"><a href="/Instagrim/index.jsp">Home</a></li>
             </ul>
         </footer>
     </body>

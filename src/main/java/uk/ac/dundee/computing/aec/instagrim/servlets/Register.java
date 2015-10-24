@@ -26,6 +26,8 @@ import uk.ac.dundee.computing.aec.instagrim.models.User;
 @WebServlet(name = "Register", urlPatterns = {"/Register"})
 public class Register extends HttpServlet {
     Cluster cluster=null;
+    
+    
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
@@ -46,13 +48,31 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username=request.getParameter("username");
+         
         String password=request.getParameter("password");
+      //   if(password.length()<6){
+        //    response.sendRedirect("/Instagrim/exit.jsp"); 
+     //   }
+        String firstName=request.getParameter("first name");
+       //  if(username.length()<1){
+        //    response.sendRedirect("/Instagrim/exit.jsp"); 
+      //  }
+        String lastName=request.getParameter("last name");
+        // if(username.length()<1){
+         //   response.sendRedirect("/Instagrim/exit.jsp"); 
+       // }
+        String email=request.getParameter("e-mail");
         
-        User us=new User();
+       if(username.length()<3){
+            response.sendRedirect("/Instagrim/exit.jsp"); 
+        }else{
+           User us=new User();
         us.setCluster(cluster);
-        us.RegisterUser(username, password);
+        us.RegisterUser(username, password, firstName, lastName);
         
 	response.sendRedirect("/Instagrim");
+       }
+        
         
     }
 

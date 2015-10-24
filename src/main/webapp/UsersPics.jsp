@@ -13,8 +13,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/Instagrim/default.css" />
+        <link rel="stylesheet" type="text/css" href="/Instagrim/fonts.css" />
     </head>
     <body>
+        <% 
+           LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+           if(lg == null)
+          //if(session.getAttribute("LoggedIn")==null)
+                   //&& session.getAttribute("authe").equals(true))
+          {
+          response.sendRedirect(request.getContextPath() +"/login.jsp");
+          }
+         %>
         <header>
         
         <h1>InstaGrim ! </h1>
@@ -29,9 +40,10 @@
         </nav>
  
         <article>
-            <h1>Your Pics</h1>
+            <h1>Pictures</h1>
         <%
             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
+            
             if (lsPics == null) {
         %>
         <p>No Pictures found</p>
@@ -39,19 +51,59 @@
         } else {
             Iterator<Pic> iterator;
             iterator = lsPics.iterator();
+            
+            java.util.LinkedList<String> CList = new LinkedList<>();
+                    
+            Iterator<String> citerator;
+            
+            //String author;
+           // String ide;
+            //java.util.UUID ident;
+            String ide = "a";
+            
+            
+            String picid;
             while (iterator.hasNext()) {
-                Pic p = (Pic) iterator.next();
-
-        %>
-        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
-
-            }
-            }
+            Pic p = (Pic) iterator.next();
+             %>
+                     <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
+             <%
+                       
+             //CList.add("fafsa");
+             picid=p.getSUUID();
+                     CList = (java.util.LinkedList<String>) request.getAttribute("Comments");
+             
+                     if (CList==null){
+                      %>   
+                     <p>No comments</p>
+                      <%  
+                     }else{
+                           citerator = CList.iterator();
+                            while (citerator.hasNext()) {
+                                   String c = (String) citerator.next();
+                                     %> 
+                                    <p><%=c%></p>
+                                    <%
+                                   } 
+                    }
+                     
+                     ide = p.getSUUID().toString();
+                   
+                     //ident = UUID.fromString(ide);
+                     
+                                  %>
+                    <p><a  href="/Instagrim/newComment.jsp?picid=<%=ide%>" style="color: blue"> comment </a></p><br>              
+        
+                    
+        <%
+            }%>
+            
+        <%}
         %>
         </article>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li class="footer"><a href="/Instagrim/home.jsp">Home</a></li>
             </ul>
         </footer>
     </body>

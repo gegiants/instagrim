@@ -4,55 +4,51 @@
     Author     : Administrator
 --%>
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
+    <% 
+          if(session.getAttribute("LoggedIn")!=null)
+                   //&& session.getAttribute("authe").equals(true))
+          {
+          response.sendRedirect(request.getContextPath() +"/index.jsp");
+          }
+    %>
     <head>
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        
+        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <header>
+          
+        <header >
+            <div>
             <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>          
+            <h2>Your world in Black and Blue </h2>
+            </div>
         </header>
-        <nav>       
+        <div class="wrapper"> 
+            <article>
+                <p>
+               <img alt="lake" height="300" width="700" border="0" src="/Instagrim/images/lake.png">
+               </p>
+            </article>
+            <nav>
+                <ul>
+                    <li><a href="register.jsp">Register</a><br><br></li>
+                    <li><a href="login.jsp">Login</a><br><br></li>
+                </ul>  
+            </nav>
+         </div>      
+        <footer id="footer">
             <ul>
-
-               
-                <li><a href="upload.jsp">Upload</a></li>
-                    <%
-                        
-                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                        if (lg != null) {
-                            String UserName = lg.getUsername(); %>
-                             <%=UserName%>   
-                          <%  if (lg.getlogedin()) {
-                    %>
-                     
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                    <%}
-                            }else{
-                                %>
-                 <li><a href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
-                <%
-                                        
-                            
-                    }%>
+                <li ><a href="/Instagrim">Home</a><br></li>
+                <li>&COPY; Andy C<br></li>
             </ul>
-            <form  method="POST" action="Logout">
-                   <input type="submit" value="Logout" />
-           </form>
-        </nav>
-        <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Andy C</li>
-            </ul>
+            <br>
         </footer>
             
     </body>
